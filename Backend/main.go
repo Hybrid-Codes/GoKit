@@ -1,18 +1,19 @@
 package main
 
 import (
-    "fmt"
     "log"
     "net/http"
-
-	"github.com/gorilla/mux"
+    "github.com/Hybrid-Codes/GoKit/models"
+    "github.com/gorilla/mux"
 )
 
 func main() {
+    models.ConnectDatabase()
+
     r := mux.NewRouter()
 
     r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintln(w, "Hello, World!")
+        w.Write([]byte("Hello, World!"))
     })
 
     log.Println("Starting server on :8080")
@@ -20,4 +21,3 @@ func main() {
         log.Fatalf("Could not start server: %s\n", err.Error())
     }
 }
-
