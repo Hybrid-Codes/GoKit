@@ -22,6 +22,9 @@ func ConnectDatabase() {
         log.Fatal("Failed to connect to database:", err)
     }
 
+    // Auto migrate the User model
+    database.AutoMigrate(&User{})
+
     DB = database
-    log.Println("Database connection established")
+    log.Println("Database connection established and User model migrated")
 }
