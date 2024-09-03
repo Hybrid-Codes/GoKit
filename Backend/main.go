@@ -6,6 +6,7 @@ import (
     "github.com/Hybrid-Codes/GoKit/models"
     "github.com/Hybrid-Codes/GoKit/handlers"
     "github.com/gorilla/mux"
+    "github.com/rs/cors"
 )
 
 func main() {
@@ -13,9 +14,14 @@ func main() {
 
     r := mux.NewRouter()
 
-    r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        w.Write([]byte("Hello, World!"))
+    corsHandler := cors.New(cors.Options{
+        AllowedOrigins: []string{"http://localhost:3000"}, // Replace with your frontend's origin
+        AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
+        AllowedHeaders: []string{"Authorization", "Content-Type"},
     })
+
+    r.Use(corsHandler.Handler)
+
     r.HandleFunc("/signup", handlers.SignupHandler).Methods("POST")
     r.HandleFunc("/login", handlers.LoginHandler).Methods("POST")
 
