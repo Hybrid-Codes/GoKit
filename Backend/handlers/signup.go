@@ -33,7 +33,7 @@ func SignupHandler(w http.ResponseWriter, r *http.Request) {
     }
 
     if err := models.DB.Create(&user).Error; err != nil {
-        http.Error(w, "Error creating user", http.StatusInternalServerError)
+        http.Error(w, "Error creating user", http.StatusConflict)
         return
     }
 
