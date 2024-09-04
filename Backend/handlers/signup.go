@@ -5,6 +5,7 @@ import (
     "net/http"
     "github.com/Hybrid-Codes/GoKit/models"
     "golang.org/x/crypto/bcrypt"
+    "gorm.io/gorm"
 )
 
 type SignupInput struct {
@@ -33,10 +34,14 @@ func SignupHandler(w http.ResponseWriter, r *http.Request) {
     }
 
     if err := models.DB.Create(&user).Error; err != nil {
-        http.Error(w, "Error creating user", http.StatusConflict)
+        if err == gorm.ErrDuplicatedKey {
+            http.Error(w, "Email already exists", http.StatusConflict)
+        } else {
+            http.Error(w, "Internal server error", http.StatusInternalServerError)
+        }
         return
     }
 
-    w.WriteHeader(http.StatusOK)
+    w.WriteHeader(http.StatusCreated)
     json.NewEncoder(w).Encode(user)
 }
