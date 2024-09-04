@@ -14,19 +14,23 @@ func main() {
 
     r := mux.NewRouter()
 
+    // CORS configuration
     corsHandler := cors.New(cors.Options{
-        AllowedOrigins: []string{"http://localhost:3000"}, // Replace with your frontend's origin
-        AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
-        AllowedHeaders: []string{"Authorization", "Content-Type"},
+        AllowedOrigins:   []string{"http://localhost:5173"}, // Replace with your frontend's origin
+        AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+        AllowedHeaders:   []string{"Authorization", "Content-Type"},
+        AllowCredentials: true, // If you are sending credentials like cookies
     })
 
-    r.Use(corsHandler.Handler)
+    // Apply CORS middleware
+    handler := corsHandler.Handler(r)
 
+    // Define routes
     r.HandleFunc("/signup", handlers.SignupHandler).Methods("POST")
     r.HandleFunc("/login", handlers.LoginHandler).Methods("POST")
 
     log.Println("Starting server on :8080")
-    if err := http.ListenAndServe(":8080", r); err != nil {
+    if err := http.ListenAndServe(":8080", handler); err != nil {
         log.Fatalf("Could not start server: %s\n", err.Error())
     }
 }
