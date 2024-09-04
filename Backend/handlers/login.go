@@ -3,8 +3,8 @@ package handlers
 import (
     "encoding/json"
     "net/http"
-	"github.com/Hybrid-Codes/GoKit/models"
-	"github.com/Hybrid-Codes/GoKit/utils"
+    "github.com/Hybrid-Codes/GoKit/models"
+    "github.com/Hybrid-Codes/GoKit/utils"
     "golang.org/x/crypto/bcrypt"
     "gorm.io/gorm"
 )
@@ -36,18 +36,17 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-	token, err := utils.GenerateToken(user.Email)
-	if err != nil {
-    http.Error(w, "Error generating token", http.StatusInternalServerError)
-    return
-	}
+    token, err := utils.GenerateToken(user.Email)
+    if err != nil {
+        http.Error(w, "Error generating token", http.StatusInternalServerError)
+        return
+    }
 
-	response := map[string]interface{}{
-		"user":  user,
-		"token": token,
-	}
+    response := map[string]interface{}{
+        "user":  user,
+        "token": token,
+    }
 
     w.WriteHeader(http.StatusOK)
-    json.NewEncoder(w).Encode(user)
-	json.NewEncoder(w).Encode(response)
+    json.NewEncoder(w).Encode(response)
 }
