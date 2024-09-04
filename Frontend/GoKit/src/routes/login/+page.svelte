@@ -16,9 +16,9 @@
         if (response.ok) {
             const { token } = await response.json();
             localStorage.setItem('token', token); // Save the token in localStorage
-
             // Navigate to the home page
             goto('/');
+            console.log("Login Successful!")
         } else {
             console.error('Login failed');
             // Handle login failure (e.g., display an error message)
