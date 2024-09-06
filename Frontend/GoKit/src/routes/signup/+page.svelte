@@ -97,6 +97,7 @@
 {/if}
 
 <form on:submit|preventDefault={signup} class="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg">
+  
   <h2 class="text-2xl font-bold mb-4">Sign Up</h2>
 
   <div class="relative z-0 w-full mb-6 group">
