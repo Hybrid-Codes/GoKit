@@ -18,8 +18,12 @@
     }
   </script>
 
-  <button on:click={generatePDF} class="px-4 py-2 bg-blue-600 text-white rounded">Generate PDF</button>
-
   {#if pdfUrl}
     <iframe src={pdfUrl} width="100%" height="600px"></iframe> <!-- Displays the PDF -->
   {/if}
+
+  <button on:click={generatePDF}
+    class="w-full px-4 py-2 bg-blue-600
+     text-white font-semibold rounded-md shadow-sm
+     hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+     focus:ring-blue-500 mt-7">Generate PDF</button>
