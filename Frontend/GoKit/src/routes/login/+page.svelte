@@ -77,7 +77,7 @@
             successMessage = 'Login Successful!';
             showSuccess = true;
             // Navigate to the home page
-            goto('/');
+            goto('report');
             console.log("Login Successful!")
         } else {
             console.error('Login failed');
